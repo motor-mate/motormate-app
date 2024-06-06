@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css';
 
-import InterfacciaRegistrazione from './components/InterfacciaRegistrazione';
+import ViewRegistrazione from './gui/InterfacciaRegistrazione';
 
 function App() {
   return (
     <>
-    <InterfacciaRegistrazione />
+    <ViewRegistrazione />
     </>
   );
 }

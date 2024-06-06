@@ -1,7 +1,5 @@
-import React from 'react';
-
 // Component that represents the registration interface
-export default function InterfacciaRegistrazione() {
+function ViewRegistrazione() {
     return (
         <div>
             <h1>Registrazione</h1>
@@ -31,3 +29,5 @@ export default function InterfacciaRegistrazione() {
         </div>
     );
 };
+
+export default ViewRegistrazione;
