@@ -1,4 +1,6 @@
-import * as mariadb from 'mariadb';
+const mariadb = require('mariadb');
+const express = require('express');
+const cors = require('cors');
 
 // Configura i dettagli della connessione al database
 const pool = mariadb.createPool({
@@ -9,8 +11,13 @@ const pool = mariadb.createPool({
     connectionLimit: 5 // Limite massimo di connessioni al database
 });
 
-// Funzione per eseguire una query
-async function eseguiQuery(sql: string, values?: any[]): Promise<any> {
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const SERVICE_PORT = 4000;
+
+async function eseguiQuery(sql, values) {
     let conn;
     try {
         conn = await pool.getConnection();
@@ -23,14 +30,16 @@ async function eseguiQuery(sql: string, values?: any[]): Promise<any> {
     }
 }
 
-// Esempio di utilizzo: eseguire una query
-async function main() {
+app.get('/api/getAdmins', async (req, res) => {
     try {
         const results = await eseguiQuery('SELECT * FROM admin');
-        console.log(results);
+        res.json(results);
     } catch (error) {
         console.error('Errore durante l\'esecuzione della query:', error);
+        res.status(500).json({ error: 'Errore durante l\'esecuzione della query' });
     }
-}
+});
 
-main();
+app.listen(SERVICE_PORT, () => {
+    console.log(`Server is running on port ${SERVICE_PORT}`);
+});
