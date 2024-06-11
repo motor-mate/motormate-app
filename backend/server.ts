@@ -6,7 +6,7 @@ import cors from 'cors';
 const pool = mariadb.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'password',
+    password: 'patta',
     database: 'motor-mate',
     connectionLimit: 5 // Limite massimo di connessioni al database
 });
@@ -43,6 +43,18 @@ app.get('/api/getAdmins', async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Errore durante l\'esecuzione della query' });
     }
 });
+
+
+app.get('/api/auth/login', async (req: Request, res: Response) => {
+    try {
+        const results = "Hello World!";
+        res.json(results);
+    } catch (error) {
+        console.error('Errore: ', error);
+        res.status(500).json({ error: 'Errore' });
+    }
+});
+
 
 app.listen(SERVICE_PORT, () => {
     console.log(`Server is running on port ${SERVICE_PORT}`);
