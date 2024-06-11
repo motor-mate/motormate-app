@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS Utenti (
+  id VARCHAR(100) PRIMARY KEY,
+  hashPassword VARCHAR(100) NOT NULL,
+  salt VARCHAR(10) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  residenza VARCHAR(100) NOT NULL,
+  consenso BOOLEAN NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Aziende (
+    partitaIva VARCHAR(100) PRIMARY KEY REFERENCES Utenti(id),
+    ragioneSociale VARCHAR(100) NOT NULL
+);
+
