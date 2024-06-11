@@ -4,10 +4,13 @@ class Utente {
     private _consenso: boolean;
 
     // Classe astratta
-    constructor() {
+    constructor(email: string, residenza: string, consenso: boolean) {
         if (this.constructor == Utente) {
             throw new Error("Abstract classes can't be instantiated.");
         }
+        this._email = email;
+        this._residenza = residenza;
+        this._consenso = consenso;
     }
 
     get email(): string {
@@ -26,6 +29,19 @@ class UtentePrivato extends Utente {
     private _cognome: string;
     private _codiceFiscale: string;
 
+    constructor(email: string,
+        residenza: string,
+        consenso: boolean,
+        nome: string,
+        cognome: string,
+        codiceFiscale: string
+    ) {
+        super(email, residenza, consenso);
+        this._nome = nome;
+        this._cognome = cognome;
+        this._codiceFiscale = codiceFiscale;
+    }
+
     get id(): string {
         return this._codiceFiscale;
     }
@@ -41,6 +57,17 @@ class UtenteAziendale extends Utente {
     private _partitaIva: string;
     private _ragioneSociale: string;
 
+    constructor(email: string,
+        residenza: string,
+        consenso: boolean,
+        partitaIva: string,
+        ragioneSociale: string
+    ) {
+        super(email, residenza, consenso);
+        this._partitaIva = partitaIva;
+        this._ragioneSociale = ragioneSociale;
+    }
+
     get id(): string {
         return this._partitaIva;
     }
@@ -48,4 +75,3 @@ class UtenteAziendale extends Utente {
         return this._ragioneSociale;
     }
 }
-
