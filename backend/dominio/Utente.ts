@@ -22,6 +22,10 @@ class Utente {
     get consenso(): boolean {
         return this._consenso;
     }
+
+    get id(): string {
+        throw new Error("Method 'id' must be implemented.");
+    }
 }
 
 class UtentePrivato extends Utente {
@@ -75,3 +79,5 @@ class UtenteAziendale extends Utente {
         return this._ragioneSociale;
     }
 }
+
+export { Utente, UtentePrivato, UtenteAziendale };
