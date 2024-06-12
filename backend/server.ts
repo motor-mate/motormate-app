@@ -6,7 +6,7 @@ import cors from 'cors';
 const pool = mariadb.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'patta',
+    password: 'password',
     database: 'motor-mate',
     connectionLimit: 5 // Limite massimo di connessioni al database
 });
@@ -45,7 +45,7 @@ app.get('/api/getAdmins', async (req: Request, res: Response) => {
 });
 
 
-app.get('/api/auth/login', async (req: Request, res: Response) => {
+app.post('/api/auth/login', async (req: Request, res: Response) => {
     try {
         const results = "Hello World!";
         res.json(results);

@@ -17,7 +17,8 @@ const Login: React.FC = () => {
         const data = await response.json();
         
         if (response.ok) {
-            console.log('Login effettuato con successo');
+            console.log('Login effettuato con successo', data);
+            localStorage.setItem('token', data.token);
         } else {
             console.error('Errore durante il login:', data.message);
         }

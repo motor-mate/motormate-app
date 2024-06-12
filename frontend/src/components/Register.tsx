@@ -18,6 +18,7 @@ const Register: React.FC = () => {
         
         if (response.ok) {
             console.log('Registrazione effettuata con successo');
+            localStorage.setItem('token', data.token);
         } else {
             console.error('Errore durante la registrazione:', data.message);
         }

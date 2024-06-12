@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
 //import ViewRegistrazione from './gui/InterfacciaRegistrazione';
 
 
-function App() {
+const App: React.FC = () => {
+  const [token, setToken] = useState(null);
   return (
     <div className="App">
       <h1>Login</h1>
