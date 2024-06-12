@@ -11,53 +11,48 @@ import {
   Route,
 } from "react-router-dom";
 
-const App: React.FC = () => {
-  const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if(localStorage.getItem('token')) {
-        try {
-          const response = await fetch("http://localhost:4000/api/verify", {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-  
-          if(response.ok) {
-            setToken(localStorage.getItem('token'));
-          } else {
-            setToken(null);
+
+const App: React.FC = () => {
+  const [token, setToken] = useState('');
+
+  const checkToken = async () => {
+    if(localStorage.getItem('token')) {
+      try {
+        const response = await fetch("http://localhost:4000/api/verify", {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          setToken(null);
+        });
+
+        if(response.ok) {
+          setToken(localStorage.getItem('token') || '');
+        } else {
+          setToken('');
         }
-      } else {
-        setToken(null);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setToken('');
       }
-    };
-  
-    fetchData();
+    } else {
+      setToken('');
+    }
+  };
+
+  useEffect(() => {  
+    checkToken();
   }, []);
 
-  if(token) {
-    return (
+  return (
       <Router >
-          <Routes>
-                <Route path="/" element={<HomeUtente />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Registrazione />} />
-              </Routes>
+        <Routes>
+          <Route path="/" element={<HomeUtente token={token} />} />
+          <Route path="/login" element={<Login  token={token} />} />
+          <Route path="/register" element={<Registrazione  token={token} />} />
+        </Routes>
       </Router>
   );
-  } else {
-    return (
-      <div className="App">
-        <Login />
-      </div>
-    );
-  }
+  
 }
 
 export default App;

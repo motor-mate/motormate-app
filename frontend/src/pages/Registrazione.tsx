@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs } from "flowbite-react";
 import { HiOutlineLogin, HiOutlineUserGroup, HiOutlineUser } from "react-icons/hi";
 import RegistrazioneAzienda from '../components/RegistrazioneAzienda';
 import RegistrazionePrivato from '../components/RegistrazionePrivato';
 
+interface RegistrazioneProps {
+    token: string;
+};
 
-const Registrazione: React.FC = () => {
+
+
+const Registrazione: React.FC<RegistrazioneProps> = ({ token }) => {
+    useEffect(() => {
+        if(token) {
+            window.location.href = '/';
+        }
+    });
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900" style={{backgroundImage: "url(/images/wallpaper.jpg)", backgroundSize: 'cover'}}>

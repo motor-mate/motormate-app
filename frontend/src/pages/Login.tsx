@@ -1,32 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+interface LoginProps {
+    token: string;
+};
 
-const Login: React.FC = () => {
+const Login: React.FC<LoginProps> = ({ token }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if(token) {
+            window.location.href = '/';
+        }
+    });
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:4000/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
+        try {
+            const response = await fetch('http://localhost:4000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
         
-        const data = await response.json();
+            const data = await response.json();
         
-        if (response.ok) {
-            console.log('Login effettuato con successo', data);
-            localStorage.setItem('token', data.token);
-            // Redirect to root
-            window.location.href = '/';
-        } else {
-            console.error('Errore durante il login:', data.message);
-            setErrorMessage(data.message);
+            if (response.ok) {
+                console.log('Login effettuato con successo', data);
+                localStorage.setItem('token', data.token);
+                // Redirect to root
+                window.location.href = '/';
+            } else {
+                console.error('Errore durante il login:', data.message);
+                setErrorMessage(data.message);
+            }
+        } catch (error) {
+            console.error('Errore durante la richiesta:', error);
+            setErrorMessage('Errore durante la richiesta. Si prega di riprovare più tardi.');
         }
 
 

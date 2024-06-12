@@ -16,24 +16,29 @@ const RegistrazionePrivato: React.FC = () => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:4000/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password, nome, cognome, codice_fiscale, residenza, consenso})
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            console.log('Registrazione effettuata con successo');
-            localStorage.setItem('token', data.token);
+        try {
+            const response = await fetch('http://localhost:4000/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password, nome, cognome, codice_fiscale, residenza, consenso})
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                console.log('Registrazione effettuata con successo');
+                localStorage.setItem('token', data.token);
 
-            window.location.href = '/';
-        } else {
-            console.error('Errore durante la registrazione:', data.message);
-            setErrorMessage(data.message);
+                window.location.href = '/';
+            } else {
+                console.error('Errore durante la registrazione:', data.message);
+                setErrorMessage(data.message);
+            }
+        } catch (error) {
+            console.error('Errore durante la richiesta:', error);
+            setErrorMessage('Errore durante la richiesta. Si prega di riprovare più tardi.');
         }
     };
 
