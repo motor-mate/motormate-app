@@ -15,13 +15,13 @@ export const authenticateJWT = (req: AuthenticatedRequest, res: Response, next: 
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
       if (err) {
-        return res.sendStatus(403);
+        return res.status(403).json({ message: 'Invalid token' });
       }
 
       req.user = (user as { username: string }).username;
       next();
     });
   } else {
-    res.sendStatus(401);
+    res.status(401).json({ message: 'Bad request' });
   }
 };
