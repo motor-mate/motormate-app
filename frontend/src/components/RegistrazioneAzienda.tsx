@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 const RegistrazioneAzienda: React.FC = () => {
     const [email, setEmail] = useState('');
     const [ragione_sociale, setRagioneSociale] = useState('');
+    const [consenso, setConsenso] = useState(0);
 
     const [indirizzo, setIndirizzo] = useState('');
     const [partita_iva, setPartitaIva] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();

@@ -5,11 +5,14 @@ const RegistrazionePrivato: React.FC = () => {
     const [email, setEmail] = useState('');
     const [nome, setNome] = useState('');
     const [cognome, setCognome] = useState('');
+    const [consenso, setConsenso] = useState(0);
 
-    const [cf, setCf] = useState('');
+    const [codice_fiscale, setCodiceFiscale] = useState('');
     const [residenza, setResidenza] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -18,7 +21,7 @@ const RegistrazionePrivato: React.FC = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, nome, cognome, codice_fiscale, residenza, consenso})
         });
         
         const data = await response.json();
@@ -26,8 +29,11 @@ const RegistrazionePrivato: React.FC = () => {
         if (response.ok) {
             console.log('Registrazione effettuata con successo');
             localStorage.setItem('token', data.token);
+
+            window.location.href = '/';
         } else {
             console.error('Errore durante la registrazione:', data.message);
+            setErrorMessage(data.message);
         }
     };
 
@@ -55,7 +61,7 @@ const RegistrazionePrivato: React.FC = () => {
                     </div>
                     <div>
                         <label htmlFor="cf" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codice Fiscale</label>
-                        <input value={cf} onChange={e => setCf(e.target.value)} type="text" name="cf" id="cf" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='RSSMRA80A01F205X' required/>
+                        <input value={codice_fiscale} onChange={e => setCodiceFiscale(e.target.value)} type="text" name="cf" id="cf" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='RSSMRA80A01F205X' required/>
                     </div>
                     
                     <div className="grid md:grid-cols-2 md:gap-6">
@@ -68,6 +74,7 @@ const RegistrazionePrivato: React.FC = () => {
                             <input value={password2} onChange={e => setPassword2(e.target.value)} type="password2" name="password2" id="password2" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required/>
                         </div>
                     </div>
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-500 text-center">{errorMessage}</p>
                     <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none font-medium text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrati</button>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Hai già un account? <a href="/login" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Login</a>
