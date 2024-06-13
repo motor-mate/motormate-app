@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ token }) => {
             if (response.ok) {
                 console.log('Login effettuato con successo', data);
                 localStorage.setItem('token', data.token);
-                // Redirect to root
+                localStorage.setItem('id_utente', email);
                 window.location.href = '/';
             } else {
                 console.error('Errore durante il login:', data.message);

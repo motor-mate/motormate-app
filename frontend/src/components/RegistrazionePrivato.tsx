@@ -30,7 +30,7 @@ const RegistrazionePrivato: React.FC = () => {
             if (response.ok) {
                 console.log('Registrazione effettuata con successo');
                 localStorage.setItem('token', data.token);
-
+                localStorage.setItem('id_utente', email);
                 window.location.href = '/';
             } else {
                 console.error('Errore durante la registrazione:', data.message);
