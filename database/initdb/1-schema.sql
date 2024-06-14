@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS Admin (
   hashPassword VARCHAR(300) NOT NULL
 );
 
-
 /* ---------- CREAZIONE UTENTI ---------- */
 
 CREATE TABLE IF NOT EXISTS Utenti (

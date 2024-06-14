@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Login from './Login';
 import Navbar from '../components/Navbar';
-import CardList from '../components/CardList';
+import ListaVeicoli from '../components/ListaVeicoli';
 
 interface HomeUtenteProps {
     token: string;
@@ -24,7 +24,6 @@ const HomeUtente: React.FC<HomeUtenteProps> = ({ token }) => {
                 },
             });
 
-            
             const data = await response.json();
         
             if (response.ok) {
@@ -66,7 +65,7 @@ const HomeUtente: React.FC<HomeUtenteProps> = ({ token }) => {
             <Navbar />
             <div className='max-w-screen-xl mx-auto'>
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-3xl p-10">Garage di <span className='italic' >{email}</span></h1>
-                <CardList cards={vehicles} />
+                <ListaVeicoli cards={vehicles} />
             </div>
         </div>
     );

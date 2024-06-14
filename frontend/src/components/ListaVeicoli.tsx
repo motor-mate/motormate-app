@@ -1,13 +1,13 @@
-// src/components/CardList.tsx
+// src/components/ListaSpese.tsx
 
 import React from 'react';
 import Card from './Card';
 
-interface CardListProps {
+interface ListaVeicoliProps {
   cards: { marca: string; modello: string, targa: string }[];
 }
 
-const CardList: React.FC<CardListProps> = ({ cards }) => {
+const ListaVeicoli: React.FC<ListaVeicoliProps> = ({ cards }) => {
   return (
     <div className="flex flex-col items-center">
       {cards.map((card, index) => (
@@ -17,4 +17,4 @@ const CardList: React.FC<CardListProps> = ({ cards }) => {
   );
 };
 
-export default CardList;
+export default ListaVeicoli;

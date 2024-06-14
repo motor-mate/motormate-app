@@ -44,13 +44,15 @@ router.get('/get/userVehicles', authenticateJWT, async (req: Request, res: Respo
 router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Response) => {
   const targa = req.query.targa;
   const speseSingole = await eseguiQuery('SELECT s.*, ss.data FROM Spese s, SpeseSingole ss WHERE targa = ? AND s.id = ss.id', [targa]);
+  let newSpeseSingole = speseSingole.map((spesa: any) => {
+    return { ...spesa, tipo: 'singola' };
+  });
   const speseRicorrenti = await eseguiQuery('SELECT s.*, sr.primaRicorrenza FROM Spese s, SpeseRicorrenti sr WHERE targa = ? AND s.id = sr.id', [targa]);
-  res.json(
-    {
-      speseSingole: speseSingole,
-      speseRicorrenti: speseRicorrenti
-    }
-  );
+  let newSpeseRicorrenti = speseRicorrenti.map((spesa: any) => {
+    let { primaRicorrenza, ...resto } = spesa;
+    return { ...resto, data: primaRicorrenza, tipo: 'ricorrente' };
+  });
+  res.json([...newSpeseSingole, ...newSpeseRicorrenti]);
 });
 
 export default router;

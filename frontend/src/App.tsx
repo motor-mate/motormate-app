@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Registrazione from './pages/Registrazione';
 import HomeUtente from './pages/HomeUtente';
+import SpeseVeicolo from './pages/SpeseVeicolo';
 //import ViewRegistrazione from './gui/InterfacciaRegistrazione';
 
 import {
@@ -18,12 +19,13 @@ const App: React.FC = () => {
   let token = localStorage.getItem('token') || '';
 
   return (
-      <Router >
+      <Router>
         <Routes>
           <Route path="/" element={<HomeUtente token={token} />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/login" element={<Login  token={token} />} />
           <Route path="/register" element={<Registrazione  token={token} />} />
+          <Route path="/spese/:targa" element={<SpeseVeicolo  token={token} />} />
         </Routes>
       </Router>
   );
