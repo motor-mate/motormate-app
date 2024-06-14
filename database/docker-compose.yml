@@ -5,11 +5,11 @@ services:
     image: mariadb:latest
     container_name: mariadb-server
     environment:
-      MYSQL_ROOT_PASSWORD: toor          # Password da amministratore del database
+      MYSQL_ROOT_PASSWORD: password          # Password da amministratore del database
       MYSQL_DATABASE: motormate          # Nome del database da creare
       MYSQL_USER: user                   # Nome utente per il database
       MYSQL_PASSWORD: resu               # Password per l'utente del database
     ports:
-      - "5001:5001"
+      - "3306:3306"
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
