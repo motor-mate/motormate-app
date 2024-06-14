@@ -55,4 +55,21 @@ router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Respo
   res.json([...newSpeseSingole, ...newSpeseRicorrenti]);
 });
 
+// TODO Controllare se funziona
+router.post('/post/aggiungiVeicolo', authenticateJWT, async (req: Request, res: Response) => {
+  const { id_utente, id_modello, targa, primaImmatricolazione } = req.body;
+  try {
+     await eseguiQuery('INSERT INTO veicoli (id_garage, id_modello, targa, primaImmatricolazione) VALUES (?, ?, ?, ?)', [id_utente, id_modello, targa, primaImmatricolazione]);
+     res.status(200).json({ message: 'Veicolo aggiunto' });
+  }
+  catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Errore durante l\'inserimento del veicolo' });
+  }
+});
+
+// AggiungiSpesa
+// ModificaVeicolo
+// ModificaSpesa
+
 export default router;

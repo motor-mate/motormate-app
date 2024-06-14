@@ -9,14 +9,14 @@ interface ListaSpeseProps {
 const ListaSpese: React.FC<ListaSpeseProps> = ({ spese }) => {
   return (
     <div className="flex flex-col items-center bg-gray-300 p-8 rounded-md border border-black">
-        <div className="w-full flex flex-row justify-between m-2">
-            <span>Descrizione</span>
-            <span>Importo</span>
-            <span>Categoria</span>
-            <span>Data</span>
-            <span>Tipo</span>
-            <FaPencil size={24} className='text-gray-300' />
-        </div>
+      <div className="w-full flex flex-row justify-between bg-blue-600 text-white font-bold shadow-md rounded-lg p-4 m-2">
+        <p className='px-3 w-40'>Descrizione</p>
+        <p className='px-3'>Importo</p>
+        <p className='px-3 w-32'>Categoria</p>
+        <p className='px-3'>Data</p>
+        <p className='px-3'>Tipo</p>
+        <FaPencil size={20} className='text-blue-600' />
+      </div>
 
       {spese.map((spesa, index) => (
         <CardSpesa key={index} 

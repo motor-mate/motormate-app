@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS Modelli (
 CREATE TABLE IF NOT EXISTS Veicoli (
   targa VARCHAR(10) PRIMARY KEY,
   primaImmatricolazione DATE NOT NULL,
-  cartaDiCircolazione VARCHAR(50) NOT NULL, /* link a file */
+  cartaDiCircolazione VARCHAR(50), /* link a file */
   id_modello INT NOT NULL,
   id_garage INT NOT NULL,
   CONSTRAINT fk_id_garage FOREIGN KEY (id_garage) REFERENCES Garage(id),
