@@ -47,10 +47,6 @@ const RegistrazionePrivato: React.FC = () => {
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                     
-                    <div>
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input value={email} onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='example@domain.com' required/>
-                    </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
                         <div>
                             <label htmlFor="nome" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
@@ -62,12 +58,18 @@ const RegistrazionePrivato: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="residenza" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Residenza</label>
-                        <input value={residenza} onChange={e => setResidenza(e.target.value)} type="text" name="residenza" id="residenza" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='Via G. Amati 132, Milano' required/>
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <input value={email} onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='example@domain.com' required/>
                     </div>
-                    <div>
-                        <label htmlFor="cf" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codice Fiscale</label>
-                        <input value={codice_fiscale} onChange={e => setCodiceFiscale(e.target.value)} type="text" name="cf" id="cf" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='RSSMRA80A01F205X' required/>
+                    <div className="grid md:grid-cols-2 md:gap-6">
+                        <div>
+                            <label htmlFor="residenza" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Residenza</label>
+                            <input value={residenza} onChange={e => setResidenza(e.target.value)} type="text" name="residenza" id="residenza" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='Via G. Amati 132, Milano' required/>
+                        </div>
+                        <div>
+                            <label htmlFor="cf" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codice Fiscale</label>
+                            <input value={codice_fiscale} onChange={e => setCodiceFiscale(e.target.value)} type="text" name="cf" id="cf" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder='RSSMRA80A01F205X' required/>
+                        </div>
                     </div>
                     
                     <div className="grid md:grid-cols-2 md:gap-6">
@@ -77,7 +79,7 @@ const RegistrazionePrivato: React.FC = () => {
                         </div>
                         <div>
                             <label htmlFor="password2" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Conferma Password</label>
-                            <input value={password2} onChange={e => setPassword2(e.target.value)} type="password2" name="password2" id="password2" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required/>
+                            <input value={password2} onChange={e => setPassword2(e.target.value)} type="password" name="password2" id="password2" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required/>
                         </div>
                     </div>
                     <p className="mt-2 text-sm text-red-600 dark:text-red-500 text-center">{errorMessage}</p>
