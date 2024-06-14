@@ -1,5 +1,5 @@
 import React from 'react'
-import Logout from './Logout';
+import Logout from '../pages/Logout';
 
 
 const Navbar: React.FC = () => {
@@ -22,12 +22,7 @@ const Navbar: React.FC = () => {
                             <a href="#" className="block py-2 px-3 text-gray-200 rounded hover:underline md:border-0 md:p-0">About</a>
                         </li>
                         <li> 
-                            <a href="#" className="block py-2 px-3 text-gray-200 rounded hover:underline md:border-0 md:p-0"  onClick={() => {
-                                localStorage.removeItem('token');
-                                localStorage.removeItem('id');
-                                localStorage.removeItem('email');
-                                window.location.href = '/login';
-                            }}>Logout</a>
+                            <a href="/logout" className="block py-2 px-3 text-gray-200 rounded hover:underline md:border-0 md:p-0">Logout</a>
                         </li>
                     </ul>
                 </div>

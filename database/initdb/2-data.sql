@@ -1,3 +1,7 @@
+INSERT INTO Admin (username, hashPassword) VALUES
+('admin', 'hashedPassAdmin');
+
+
 INSERT INTO Utenti (id, hashPassword, email, residenza, consenso) VALUES
 ('user1', 'hashedPass1', 'user1@example.com', 'Via Roma 1, Milano', TRUE),
 ('user2', 'hashedPass2', 'user2@example.com', 'Via Milano 2, Roma', FALSE),
@@ -36,3 +40,15 @@ INSERT INTO Veicoli (targa, primaImmatricolazione, cartaDiCircolazione, id_model
 ('EF456GH', '2021-05-20', 'cdp67890', @id_modello2, @id_garage2),
 ('IJ789KL', '2019-03-10', 'cdp13579', @id_modello3, @id_garage3);
 
+
+INSERT INTO Spese (id, descrizione, importo, categoria, targa) VALUES
+(1, 'Tagliando', 100.00, 'Tagliando', 'AB123CD'),
+(2, 'Cambio gomme', 200.00, 'Manutenzione', 'AB123CD'),
+(3, 'Revisione', 50.00, 'Revisione', 'EF456GH');
+
+INSERT INTO SpeseSingole (id, data) VALUES
+(2, '2021-02-01'),
+(3, '2021-03-01');
+
+INSERT INTO SpeseRicorrenti (id, primaRicorrenza, termineRicorrenza, periodoGiorni, periodoMesi, periodoAnni) VALUES
+(1, '2021-01-01', '2021-12-31', 0, 6, 0);

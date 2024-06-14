@@ -41,4 +41,16 @@ router.get('/get/userVehicles', authenticateJWT, async (req: Request, res: Respo
   res.json(results);
 });
 
+router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Response) => {
+  const targa = req.query.targa;
+  const speseSingole = await eseguiQuery('SELECT s.*, ss.data FROM Spese s, SpeseSingole ss WHERE targa = ? AND s.id = ss.id', [targa]);
+  const speseRicorrenti = await eseguiQuery('SELECT s.*, sr.primaRicorrenza FROM Spese s, SpeseRicorrenti sr WHERE targa = ? AND s.id = sr.id', [targa]);
+  res.json(
+    {
+      speseSingole: speseSingole,
+      speseRicorrenti: speseRicorrenti
+    }
+  );
+});
+
 export default router;

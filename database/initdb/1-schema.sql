@@ -1,3 +1,11 @@
+/* ---------- CREAZIONE ADMIN ---------- */
+
+CREATE TABLE IF NOT EXISTS Admin (
+  username VARCHAR(100) PRIMARY KEY,
+  hashPassword VARCHAR(300) NOT NULL
+);
+
+
 /* ---------- CREAZIONE UTENTI ---------- */
 
 CREATE TABLE IF NOT EXISTS Utenti (
@@ -49,4 +57,31 @@ CREATE TABLE IF NOT EXISTS Veicoli (
   id_garage INT NOT NULL,
   CONSTRAINT fk_id_garage FOREIGN KEY (id_garage) REFERENCES Garage(id),
   CONSTRAINT fk_id_modello FOREIGN KEY (id_modello) REFERENCES Modelli(id)
+);
+
+/* ---------- CREAZIONE SPESE ---------- */
+
+CREATE TABLE IF NOT EXISTS Spese (
+  id INT PRIMARY KEY,
+  descrizione VARCHAR(100) NOT NULL,
+  importo DECIMAL(10,2) NOT NULL,
+  categoria VARCHAR(30) NOT NULL,
+  targa VARCHAR(10) NOT NULL,
+  CONSTRAINT fk_id_veicolo FOREIGN KEY (targa) REFERENCES Veicoli(targa)
+);
+
+CREATE TABLE IF NOT EXISTS SpeseSingole (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  data DATE NOT NULL,
+  CONSTRAINT fk_id_spesa FOREIGN KEY (id) REFERENCES Spese(id)
+);
+
+CREATE TABLE IF NOT EXISTS SpeseRicorrenti (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  primaRicorrenza DATE NOT NULL,
+  termineRicorrenza DATE, /* NULL se non c'è termine, nel documento non era previsto però */
+  periodoGiorni INT NOT NULL,
+  periodoMesi INT NOT NULL,
+  periodoAnni INT NOT NULL,
+  CONSTRAINT fk_id_spesa2 FOREIGN KEY (id) REFERENCES Spese(id)
 );

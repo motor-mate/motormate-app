@@ -29,7 +29,6 @@ const Login: React.FC<LoginProps> = ({ token }) => {
             const data = await response.json();
         
             if (response.ok) {
-                console.log('Login effettuato con successo', data);
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('email', email);
                 localStorage.setItem('id', data.id);

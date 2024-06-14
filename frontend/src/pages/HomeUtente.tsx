@@ -30,7 +30,7 @@ const HomeUtente: React.FC<HomeUtenteProps> = ({ token }) => {
             if (response.ok) {
                 setVehicles(data);
             } else {
-                setVehicles([]);
+                window.location.href = '/logout';
             }
         } catch (error) {
             console.error('Errore durante la richiesta:', error);

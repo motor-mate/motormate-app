@@ -1,6 +1,7 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Registrazione from './pages/Registrazione';
 import HomeUtente from './pages/HomeUtente';
 //import ViewRegistrazione from './gui/InterfacciaRegistrazione';
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       <Router >
         <Routes>
           <Route path="/" element={<HomeUtente token={token} />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/login" element={<Login  token={token} />} />
           <Route path="/register" element={<Registrazione  token={token} />} />
         </Routes>
