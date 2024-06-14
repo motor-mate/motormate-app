@@ -16,17 +16,17 @@ const pool = mariadb.createPool({
 async function eseguiQuery(sql: string, values?: any[]): Promise<any> {
   let conn;
   try {
-      conn = await pool.getConnection();
-      const rows = await conn.query(sql, values);
-      return rows;
+    conn = await pool.getConnection();
+    const rows = await conn.query(sql, values);
+    return rows;
   }
   catch (err) {
-      throw err;
+    throw err;
   }
   finally {
-      if (conn) {
-          conn.end();
-      }
+    if (conn) {
+      conn.end();
+    }
   }
 }
 
