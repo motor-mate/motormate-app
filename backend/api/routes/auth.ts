@@ -42,14 +42,19 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ message: 'Email and password are required' });
   }
 
-  const results = await eseguiQuery('SELECT * FROM utenti WHERE email = ?', [email]);
+  const results = await eseguiQuery('SELECT * FROM Utenti WHERE email = ? || id = ?', [email, codice_fiscale]);
   if(results.length > 0) {
-    return res.status(409).json({ message: 'Email già registrata' });
+    return res.status(409).json({ message: 'Sei già registrato, puoi procedere al login' });
   }
   
   const hashedPassword = await bcrypt.hash(password, 10);
-  await eseguiQuery('INSERT INTO utenti (id, password, email, residenza, consenso, nome, cognome) VALUES (?, ?, ?, ?, ?, ?, ?)', [codice_fiscale, hashedPassword, email, residenza, consenso, nome, cognome]);
-  res.status(201).json({ message: 'Utente registrato con successo!' });
+  await eseguiQuery('INSERT INTO Utenti (id, hashPassword, email, residenza, consenso) VALUES (?, ?, ?, ?, ?)', [codice_fiscale, hashedPassword, email, residenza, consenso]);
+  await eseguiQuery('INSERT INTO Privati (codiceFiscale, nome, cognome) VALUES (?, ?, ?)', [codice_fiscale, nome, cognome]);
+  
+  const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
+  const userId = codice_fiscale;
+  return res.json({ "token": token, "id": userId });
+
 });
 
 // Login
@@ -61,7 +66,7 @@ router.post('/login', async (req, res) => {
   }
 
   try {
-    const results = await eseguiQuery('SELECT * FROM utenti WHERE email = ?', [email]);
+    const results = await eseguiQuery('SELECT * FROM Utenti WHERE email = ?', [email]);
 
     if (results.length === 0) {
       return res.status(401).json({ message: 'Invalid email or password' });
@@ -69,13 +74,14 @@ router.post('/login', async (req, res) => {
 
     const user = results[0];
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.hashPassword);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
-    return res.json({ token });
+    const userId = user.id;
+    return res.json({ "token": token, "id": userId });
   } catch (err: any) {
     res.status(500).json({ message: 'Error logging in', error: err.message });
   }

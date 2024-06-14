@@ -31,7 +31,8 @@ const Login: React.FC<LoginProps> = ({ token }) => {
             if (response.ok) {
                 console.log('Login effettuato con successo', data);
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('id_utente', email);
+                localStorage.setItem('email', email);
+                localStorage.setItem('id', data.id);
                 window.location.href = '/';
             } else {
                 console.error('Errore durante il login:', data.message);

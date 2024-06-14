@@ -37,8 +37,7 @@ router.get('/verify', authenticateJWT, (req, res) => {
 
 router.get('/get/userVehicles', authenticateJWT, async (req: Request, res: Response) => {
   const id_utente = req.query.id_utente;
-  const results = await eseguiQuery('SELECT v.* FROM veicoli v, garage g WHERE g.id_utente = ? AND v.id_garage = g.id', [id_utente]);
-  console.log(results);
+  const results = await eseguiQuery('SELECT marca, modello, targa FROM modelli m, veicoli v, garage g WHERE g.id_utente = ? AND v.id_garage = g.id AND m.id = v.id_modello', [id_utente]);
   res.json(results);
 });
 
