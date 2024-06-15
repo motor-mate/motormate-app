@@ -9,16 +9,6 @@ interface ListaVeicoliProps {
 }
 
 const ListaVeicoli: React.FC<ListaVeicoliProps> = ({ cards }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   return (
     <div className="flex flex-col items-center">
       {cards.map((card, index) => (

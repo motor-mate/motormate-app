@@ -17,7 +17,7 @@ const ListaSpese: React.FC<ListaSpeseProps> = ({ spese }) => {
         <p className='px-3'>Tipo</p>
         <FaPencil size={20} className='text-blue-600' />
       </div>
-
+      {spese.length === 0 && <h1 className='text-center text-2xl text-gray-500 italic my-10' >Non hai ancora registrato alcuna spesa per questo veicolo</h1>}
       {spese.map((spesa, index) => (
         <CardSpesa key={index} 
           descrizione={spesa.descrizione} 

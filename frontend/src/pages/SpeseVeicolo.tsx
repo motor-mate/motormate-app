@@ -11,7 +11,7 @@ const SpeseVeicolo: React.FC<SpeseVeicoloProps> = ({ token }) => {
 
     const { targa } = useParams();
     const [spese, setSpese] = useState([]);
-    // let veicolo = localStorage.getItem('veicolo') || '';
+    let email = localStorage.getItem('email') || '';
 
     const getSpese = async () => {
         try {
@@ -40,8 +40,6 @@ const SpeseVeicolo: React.FC<SpeseVeicoloProps> = ({ token }) => {
     useEffect (() => {
         getSpese();
     }, []);
-    
-
 
     return (
         <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">

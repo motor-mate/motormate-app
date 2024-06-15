@@ -12,13 +12,13 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ marca, modello, targa }) => {
   return (
     <a className="w-full max-w-2xl" href={`/spese/${targa}`}>
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 w-full hover:shadow-xl flex justify-between">
-      <div className="flex items-center">
-        <FaCar size={24} className='text-blue-600' />
-        <p className='px-3 text-xl'><span className='font-bold'>{marca} {modello}</span> - {targa}</p>
+      <div className="bg-white shadow-md rounded-lg p-4 mb-4 w-full hover:shadow-xl flex justify-between">
+        <div className="flex items-center">
+          <FaCar size={24} className='text-blue-600' />
+          <p className='px-3 text-xl'><span className='font-bold'>{marca} {modello}</span> - {targa}</p>
+        </div>
+        <FaTrash size={24} className='text-blue-600' />
       </div>
-      <FaTrash size={24} className='text-blue-600' />
-    </div>
     </a>
   );
 };

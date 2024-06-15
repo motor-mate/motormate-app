@@ -75,11 +75,24 @@ router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Respo
 // TODO Controllare se funziona
 router.post('/post/aggiungiVeicolo', authenticateJWT, async (req: Request, res: Response) => {
   const { id_utente, id_modello, targa, primaImmatricolazione } = req.body;
-  try {
-    await eseguiQuery('INSERT INTO Veioli (id_garage, id_modello, targa, primaImmatricolazione) VALUES (?, ?, ?, ?)', [id_utente, id_modello, targa, primaImmatricolazione]);
-    res.status(200).json({ message: 'Veicolo aggiunto' });
+
+  if (!id_utente || !id_modello || !targa || !primaImmatricolazione) {
+    res.status(400).json({ message: 'Parametri mancanti' });
+    return;
   }
-  catch (err) {
+
+  const t = await eseguiQuery('SELECT targa FROM Veicoli WHERE targa = ?', [targa]);
+  if (t.length > 0) {
+    res.status(400).json({ message: 'Targa già registrata' });
+    return;
+  }
+
+  const garages  = await eseguiQuery('SELECT id FROM Garage WHERE id_utente = ?', [id_utente]); // momentaneamente ad ogni utene è associato un solo garage
+  const id_garage: number = garages[0].id;
+  try {
+    await eseguiQuery('INSERT INTO Veicoli (id_garage, id_modello, targa, primaImmatricolazione) VALUES (?, ?, ?, ?)', [id_garage, id_modello, targa, primaImmatricolazione]);
+    res.status(200).json({ message: 'Veicolo aggiunto' });
+  } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Errore durante l\'inserimento del veicolo' });
   }
