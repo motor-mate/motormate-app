@@ -35,9 +35,26 @@ router.get('/verify', authenticateJWT, (req, res) => {
   res.json({ message: 'Valid token' });
 });
 
+
+router.get('/get/modelli', authenticateJWT, async (req: Request, res: Response) => {
+  const marca = req.query.marca;
+  const modello = req.query.modello;
+
+  if(marca && modello) {
+    const results = await eseguiQuery('SELECT id, versione FROM Modelli WHERE marca = ? AND modello = ?', [marca, modello]);
+    res.json(results);
+  } else if(marca) {
+    const results = await eseguiQuery('SELECT DISTINCT modello FROM Modelli WHERE marca = ?', [marca]);
+    res.json(results);
+  } else {
+    const results = await eseguiQuery('SELECT DISTINCT marca FROM Modelli');
+    res.json(results);
+  }
+});
+
 router.get('/get/userVehicles', authenticateJWT, async (req: Request, res: Response) => {
   const id_utente = req.query.id_utente;
-  const results = await eseguiQuery('SELECT marca, modello, targa FROM modelli m, veicoli v, garage g WHERE g.id_utente = ? AND v.id_garage = g.id AND m.id = v.id_modello', [id_utente]);
+  const results = await eseguiQuery('SELECT marca, modello, targa FROM Modelli m, Veicoli v, Garage g WHERE g.id_utente = ? AND v.id_garage = g.id AND m.id = v.id_modello', [id_utente]);
   res.json(results);
 });
 
@@ -59,8 +76,8 @@ router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Respo
 router.post('/post/aggiungiVeicolo', authenticateJWT, async (req: Request, res: Response) => {
   const { id_utente, id_modello, targa, primaImmatricolazione } = req.body;
   try {
-     await eseguiQuery('INSERT INTO veicoli (id_garage, id_modello, targa, primaImmatricolazione) VALUES (?, ?, ?, ?)', [id_utente, id_modello, targa, primaImmatricolazione]);
-     res.status(200).json({ message: 'Veicolo aggiunto' });
+    await eseguiQuery('INSERT INTO Veioli (id_garage, id_modello, targa, primaImmatricolazione) VALUES (?, ?, ?, ?)', [id_utente, id_modello, targa, primaImmatricolazione]);
+    res.status(200).json({ message: 'Veicolo aggiunto' });
   }
   catch (err) {
     console.error(err);
