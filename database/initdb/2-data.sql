@@ -5,7 +5,8 @@ INSERT INTO Admin (username, hashPassword) VALUES
 INSERT INTO Utenti (id, hashPassword, email, residenza, consenso) VALUES
 ('user1', 'hashedPass1', 'user1@example.com', 'Via Roma 1, Milano', TRUE),
 ('user2', 'hashedPass2', 'user2@example.com', 'Via Milano 2, Roma', FALSE),
-('user3', 'hashedPass3', 'user3@example.com', 'Via Torino 3, Napoli', TRUE);
+('user3', 'hashedPass3', 'user3@example.com', 'Via Torino 3, Napoli', TRUE),
+('MRIRSS03409DJ2H2', '$2a$10$wUPgtJ59iC/oII7gA4p.z.rxeHholGI3OJbzgRjCbTSvSfJQaU4RG', 'mario.rossi@gmail.com', 'Via Zamboni, 45', FALSE);
 
 INSERT INTO Aziende (partitaIva, ragioneSociale) VALUES
 ('user1', 'Azienda Alpha'),
