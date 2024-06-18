@@ -76,7 +76,7 @@ router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Respo
   let newSpeseSingole = speseSingole.map((spesa: any) => {
     return { ...spesa, tipo: 'singola' };
   });
-  const speseRicorrenti = await eseguiQuery('SELECT s.*, sr.primaRicorrenza FROM Spese s, SpeseRicorrenti sr WHERE targa = ? AND s.id = sr.id', [targa]);
+  const speseRicorrenti = await eseguiQuery('SELECT UNIQUE s.*, sr.primaRicorrenza FROM Spese s, SpeseRicorrenti sr WHERE targa = ? ', [targa]);
   let newSpeseRicorrenti = speseRicorrenti.map((spesa: any) => {
     let { primaRicorrenza, ...resto } = spesa;
     return { ...resto, data: primaRicorrenza, tipo: 'ricorrente' };

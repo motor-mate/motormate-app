@@ -51,14 +51,18 @@ INSERT INTO Spese (id, descrizione, importo, categoria, targa) VALUES
 (1, 'Tagliando', 100.00, 'Tagliando', 'AB123CD'),
 (2, 'Cambio gomme', 200.00, 'Manutenzione', 'AB123CD'),
 (3, 'Revisione', 50.00, 'Revisione', 'EF456GH'), 
-(4, 'Assicurazione', 500.00, 'Assicurazione', 'IJ789KL'),
+(4, 'Assicurazione', 500.00, 'Assicurazione', 'MN012OP'),
 (5, 'Bollo', 100.00, 'Bollo', 'MN012OP'),
-(6, 'Tagliando', 100.00, 'Tagliando', 'QR345ST'), 
-(7, 'Cambio gomme', 200.00, 'Manutenzione', 'QR345ST');
+(6, 'Tagliando', 100.00, 'Tagliando', 'MN012OP'), 
+(7, 'Cambio gomme', 200.00, 'Manutenzione', 'MN012OP');
 
 INSERT INTO SpeseSingole (id, data) VALUES
 (2, '2021-02-01'),
-(3, '2021-03-01');
+(3, '2021-03-01'),
+(6, '2021-06-01'), 
+(7, '2021-07-01');
 
 INSERT INTO SpeseRicorrenti (id, primaRicorrenza, termineRicorrenza, periodoGiorni, periodoMesi, periodoAnni) VALUES
-(1, '2021-01-01', '2021-12-31', 0, 6, 0);
+(1, '2021-01-01', '2021-12-31', 0, 6, 0),
+(4, '2021-01-01', '2021-12-31', 0, 0, 1),
+(5, '2021-01-01', '2021-12-31', 0, 0, 1);
