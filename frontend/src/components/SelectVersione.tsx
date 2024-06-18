@@ -31,11 +31,11 @@ const SelectModello: React.FC<SelectMaodelloProps> = ({ marca, modello, setIdMod
         setIdModello(versioni.find((v) => v.versione === e.target.value)?.id || -1);
       }} disabled={!(marca && modello)}>
       <option value=''>Seleziona versione</option>
-      {versioni.map((versione) => (
+      {/* {versioni.map((versione) => (
         <option key={versione.versione} value={versione.versione}>
           {versione.versione}
         </option>
-      ))}
+      ))} */}
     </select>
   );
 };

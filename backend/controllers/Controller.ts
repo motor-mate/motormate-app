@@ -4,8 +4,7 @@ import mariadb from 'mariadb';
 
 import { Entry } from '../model/Entry';
 
-// Classe astratta
-class Controller {
+abstract class Controller {
     private _dbConnection: mariadb.Pool;
     private static LOGS_FOLDER = "logs";
 
@@ -15,10 +14,6 @@ class Controller {
         password: string,
         database: string,
     ) {
-        if (this.constructor == Controller) {
-            throw new Error("Abstract classes can't be instantiated.");
-        }
-
         this._dbConnection = mariadb.createPool({
             host: host,
             user: user,
@@ -28,7 +23,7 @@ class Controller {
         });
     }
 
-    private async eseguiQuery(sql: string, values?: any[]): Promise<any> {
+    protected async eseguiQuery(sql: string, values?: any[]): Promise<any> {
         let conn;
         try {
             conn = await this._dbConnection.getConnection();

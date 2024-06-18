@@ -10,7 +10,7 @@ const SelectModello: React.FC<SelectMaodelloProps> = ({ marca, setModello }) => 
   useEffect(() => {
     const fetchMarche = async () => {
       let token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:4000/api/get/modelli?marca='+marca, {
+            const response = await fetch('http://localhost:4000/api/get/modelli?modelli='+marca, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,7 +19,9 @@ const SelectModello: React.FC<SelectMaodelloProps> = ({ marca, setModello }) => 
             });
 
       const data = await response.json();
+      console.log(data);
       setModelli(data);
+      console.log(modelli);
     };
     fetchMarche();
   }, [marca]);

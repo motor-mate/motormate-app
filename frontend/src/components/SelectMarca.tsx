@@ -9,7 +9,7 @@ const SelectMarca: React.FC<SelectMarcheProps> = ({ setMarca }) => {
   useEffect(() => {
     const fetchMarche = async () => {
       let token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:4000/api/get/modelli', {
+            const response = await fetch('http://localhost:4000/api/get/marche', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
