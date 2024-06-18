@@ -4,6 +4,7 @@ import mariadb from 'mariadb';
 
 import { Entry } from '../model/Entry';
 
+// Classe astratta
 class Controller {
     private _dbConnection: mariadb.Pool;
     private static LOGS_FOLDER = "logs";
@@ -13,7 +14,6 @@ class Controller {
         user: string,
         password: string,
         database: string,
-        connectionLimit: number
     ) {
         if (this.constructor == Controller) {
             throw new Error("Abstract classes can't be instantiated.");
@@ -28,7 +28,24 @@ class Controller {
         });
     }
 
-    async writeToLog(entry: Entry): Promise<void> {
+    private async eseguiQuery(sql: string, values?: any[]): Promise<any> {
+        let conn;
+        try {
+            conn = await this._dbConnection.getConnection();
+            const rows = await conn.query(sql, values);
+            return rows;
+        }
+        catch (err) {
+            throw err;
+        }
+        finally {
+            if (conn) {
+                conn.end();
+            }
+        }
+    }
+
+    private async writeToLog(entry: Entry): Promise<void> {
         // Scrive entry in un file di testo nella cartella LOGS_FOLDER
         // Il nome del file è la data dell'entry
         // Se il file esiste già, appende l'entry
@@ -46,3 +63,5 @@ class Controller {
         }
     }
 }
+
+export { Controller };

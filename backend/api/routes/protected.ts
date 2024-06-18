@@ -30,25 +30,35 @@ async function eseguiQuery(sql: string, values?: any[]): Promise<any> {
   }
 }
 
-
 router.get('/verify', authenticateJWT, (req, res) => {
   res.json({ message: 'Valid token' });
 });
- 
+
 router.get('/get/modelli', authenticateJWT, async (req: Request, res: Response) => {
+
   const marca = req.query.marca;
   const modello = req.query.modello;
+  let results: Promise<any>;
 
-  if(marca && modello) {
-    const results = await eseguiQuery('SELECT id, versione FROM Modelli WHERE marca = ? AND modello = ?', [marca, modello]);
-    res.json(results);
-  } else if(marca) {
-    const results = await eseguiQuery('SELECT DISTINCT modello FROM Modelli WHERE marca = ?', [marca]);
-    res.json(results);
-  } else {
-    const results = await eseguiQuery('SELECT DISTINCT marca FROM Modelli');
-    res.json(results);
+  // Nessun parametro specificato
+  if (!marca && !modello) {
+    res.status(400).json({ message: 'Parametri mancanti' });
+    return;
   }
+  // Specificata marca e modello
+  if (marca && modello) {
+    results = await eseguiQuery('SELECT id, versione FROM Modelli WHERE marca = ? AND modello = ?', [marca, modello]);
+  }
+  // Specificato solo la marca
+  else if (marca) {
+    results = await eseguiQuery('SELECT DISTINCT modello FROM Modelli WHERE marca = ?', [marca]);
+  }
+  // Specificata solo il modello
+  else {
+    results = await eseguiQuery('SELECT DISTINCT marca FROM Modelli');
+  }
+
+  res.status(200).json(results);
 });
 
 router.get('/get/userVehicles', authenticateJWT, async (req: Request, res: Response) => {
@@ -86,7 +96,7 @@ router.post('/post/aggiungiVeicolo', authenticateJWT, async (req: Request, res: 
     return;
   }
 
-  const garages  = await eseguiQuery('SELECT id FROM Garage WHERE id_utente = ?', [id_utente]); // momentaneamente ad ogni utene è associato un solo garage
+  const garages = await eseguiQuery('SELECT id FROM Garage WHERE id_utente = ?', [id_utente]); // momentaneamente ad ogni utene è associato un solo garage
   const id_garage: number = garages[0].id;
   try {
     await eseguiQuery('INSERT INTO Veicoli (id_garage, id_modello, targa, primaImmatricolazione) VALUES (?, ?, ?, ?)', [id_garage, id_modello, targa, primaImmatricolazione]);
@@ -96,9 +106,5 @@ router.post('/post/aggiungiVeicolo', authenticateJWT, async (req: Request, res: 
     res.status(500).json({ message: 'Errore durante l\'inserimento del veicolo' });
   }
 });
-
-// AggiungiSpesa
-// ModificaVeicolo
-// ModificaSpesa
 
 export default router;
