@@ -1,7 +1,7 @@
 # Far partire MariaDB con Docker
 
 Questo documento descrive come avviare un server MariaDB con Docker e caricare automaticamente tabelle e dati all'avvio.
-
+C'è un utente di default registrato nella tabella users con username 'mario.rossi@gmail.com' e password 'a'
 
 ## Scaricare Docker
 Docker si può scaricare da [qui](https://www.docker.com/products/docker-desktop).

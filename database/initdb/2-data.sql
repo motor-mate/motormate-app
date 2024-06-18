@@ -19,7 +19,8 @@ INSERT INTO Privati (codiceFiscale, nome, cognome) VALUES
 INSERT INTO Garage (id_utente) VALUES
 ('user1'),
 ('user2'),
-('user3');
+('user3'),
+('MRIRSS03409DJ2H2');
 
 INSERT INTO Modelli (marca, modello, versione) VALUES
 ('Fiat', '500', 'Sport'),
@@ -31,21 +32,30 @@ INSERT INTO Modelli (marca, modello, versione) VALUES
 SELECT id INTO @id_garage1 FROM Garage WHERE id_utente = 'user1';
 SELECT id INTO @id_garage2 FROM Garage WHERE id_utente = 'user2';
 SELECT id INTO @id_garage3 FROM Garage WHERE id_utente = 'user3';
+SELECT id INTO @id_garage4 FROM Garage WHERE id_utente = 'MRIRSS03409DJ2H2';
 
 SELECT id INTO @id_modello1 FROM Modelli WHERE marca = 'Fiat' AND modello = '500';
 SELECT id INTO @id_modello2 FROM Modelli WHERE marca = 'Tesla' AND modello = 'Model S';
 SELECT id INTO @id_modello3 FROM Modelli WHERE marca = 'BMW' AND modello = 'X5';
+SELECT id INTO @id_modello4 FROM Modelli WHERE marca = 'Fiat' AND modello = '500';
 
 INSERT INTO Veicoli (targa, primaImmatricolazione, cartaDiCircolazione, id_modello, id_garage) VALUES
 ('AB123CD', '2020-01-15', 'cdp12345', @id_modello1, @id_garage1),
 ('EF456GH', '2021-05-20', 'cdp67890', @id_modello2, @id_garage2),
-('IJ789KL', '2019-03-10', 'cdp13579', @id_modello3, @id_garage3);
+('IJ789KL', '2019-03-10', 'cdp13579', @id_modello3, @id_garage3),
+('MN012OP', '2020-07-01', 'cdp24680', @id_modello4, @id_garage4),
+('QR345ST', '2018-12-05', 'cdp35791', @id_modello1, @id_garage4);
+
 
 
 INSERT INTO Spese (id, descrizione, importo, categoria, targa) VALUES
 (1, 'Tagliando', 100.00, 'Tagliando', 'AB123CD'),
 (2, 'Cambio gomme', 200.00, 'Manutenzione', 'AB123CD'),
-(3, 'Revisione', 50.00, 'Revisione', 'EF456GH');
+(3, 'Revisione', 50.00, 'Revisione', 'EF456GH'), 
+(4, 'Assicurazione', 500.00, 'Assicurazione', 'IJ789KL'),
+(5, 'Bollo', 100.00, 'Bollo', 'MN012OP'),
+(6, 'Tagliando', 100.00, 'Tagliando', 'QR345ST'), 
+(7, 'Cambio gomme', 200.00, 'Manutenzione', 'QR345ST');
 
 INSERT INTO SpeseSingole (id, data) VALUES
 (2, '2021-02-01'),

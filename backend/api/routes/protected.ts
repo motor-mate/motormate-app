@@ -34,8 +34,7 @@ async function eseguiQuery(sql: string, values?: any[]): Promise<any> {
 router.get('/verify', authenticateJWT, (req, res) => {
   res.json({ message: 'Valid token' });
 });
-
-
+ 
 router.get('/get/modelli', authenticateJWT, async (req: Request, res: Response) => {
   const marca = req.query.marca;
   const modello = req.query.modello;
