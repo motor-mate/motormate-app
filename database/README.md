@@ -8,6 +8,12 @@ Docker si può scaricare da [qui](https://www.docker.com/products/docker-desktop
 Assicurarsi che Docker sia in esecuzione sulla propria macchina.
 
 ## Far partire il container 
+Da questa cartella si può far partire il database direttamente con 
+ ```bash
+npm start
+npm run db
+```
+
 Da questa cartella:
  ```bash
 docker-compose up -d

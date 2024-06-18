@@ -1,0 +1,12 @@
+{
+    "name": "database",
+    "version": "1.0.0",
+    "description": "Questo documento descrive come avviare un server MariaDB con Docker e caricare automaticamente tabelle e dati all'avvio.",
+    "main": "index.js",
+    "scripts": {
+        "start": "docker-compose down; docker-compose up -d",
+        "db": "docker exec -it mariadb-server mariadb -u root -ppassword"
+    },
+    "author": "",
+    "license": "ISC"
+}
