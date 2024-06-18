@@ -15,7 +15,6 @@ INSERT INTO Aziende (partitaIva, ragioneSociale) VALUES
 INSERT INTO Privati (codiceFiscale, nome, cognome) VALUES
 ('user3', 'Mario', 'Rossi');
 
-
 INSERT INTO Garage (id_utente) VALUES
 ('user1'),
 ('user2'),

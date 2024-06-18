@@ -25,6 +25,7 @@ const SpeseVeicolo: React.FC<SpeseVeicoloProps> = ({ token }) => {
             });
             
             const data = await response.json();
+            console.log(data);
         
             if (response.ok) {
                 setSpese(data);

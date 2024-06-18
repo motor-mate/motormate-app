@@ -68,8 +68,11 @@ router.get('/get/userVehicles', authenticateJWT, async (req: Request, res: Respo
 });
 
 router.get('/get/speseVeicolo', authenticateJWT, async (req: Request, res: Response) => {
+  console.log("Sono stato chiamato");
   const targa = req.query.targa;
+  console.log(targa);
   const speseSingole = await eseguiQuery('SELECT s.*, ss.data FROM Spese s, SpeseSingole ss WHERE targa = ? AND s.id = ss.id', [targa]);
+  console.log(speseSingole);
   let newSpeseSingole = speseSingole.map((spesa: any) => {
     return { ...spesa, tipo: 'singola' };
   });
